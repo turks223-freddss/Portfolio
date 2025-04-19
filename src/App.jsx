@@ -91,14 +91,6 @@ function App() {
           </div>
 
         </div>
-        {/* <button  onClick={() => {
-            const hero = document.getElementById('hero');
-            hero?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className=" bg-[#FFC857] hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
-        >
-          welcome
-        </button> */}
       </div>
 
 
@@ -111,7 +103,7 @@ function App() {
           </div>
           <div className='md:col-span-2 md:row-span-2 flex flex-col gap-5 p-5'>
             <h1 className='text-4xl md:text-6xl font-bold text-center font-serif text-white drop-shadow-[0_0_10px_#ffffff]'>
-              Profesional Summary
+              Professional Summary
             </h1>
             <p className='text-base md:text-lg leading-relaxed mt-4 font-mono text-justify text-white'>
             Motivated and detail-oriented Computer Science student from the University of the Philippines Cebu, 
@@ -126,8 +118,8 @@ function App() {
 
           <div className=' p-6'>
             <p className='font-serif text-lg md:text-xl font-semibold italic text-white '>
-            "Goals are like planets, it may be far but its light will eventually reach us, so dont give up
-            and keep on closing the distanct between you and your goal "
+              "Goals are like planets, they may be far but their light will eventually reach us, so do not give up
+              and keep on closing the distance between you and your goal "
             </p>
 
           </div>
@@ -286,7 +278,7 @@ function App() {
                       
                     </div>
                     <div className='font-mono text-2xl felx items-center justify-center  '>
-                      These are the frameworks and database used for the project, react native for frontend and django for backend
+                      These are the frameworks and databases used for the project, react native for the front end and Django for the backend.
                     </div>
 
                   </div>
@@ -296,19 +288,19 @@ function App() {
                     Features
                   </h1>
                   <p className='font-mono text-1xl font-semibold pl-3 line-through'>
-                    Authentication System, users can create, login and change their password 
+                    Authentication System, users can create, login, and change their password.  
                   </p>
                   <p className='font-mono text-1xl font-semibold pl-3 line-through'>
-                    Item & Inventory System, using the shop users can aquire item whre will dynamically update their inventory after purchasing 
+                    Item & Inventory System, using the shop, users can acquire items that will dynamically update their inventory after purchasing.  
                   </p>
                   <p className='font-mono text-1xl font-semibold pl-3'>
                     Partner System 
                   </p>
                   <p className='font-mono text-1xl font-semibold pl-3'>
-                    Task system, partners can give and recive task from their partners and upon completing it they recive some reward 
+                    Task system, partners can give and receive tasks from their partners, and upon completing they receive some reward.  
                   </p>
                   <p className='font-mono text-1xl font-semibold pl-3'>
-                    Avatar and Environment customization, users can equip their items to their avatar and room to personalize them 
+                    Avatar and Environment customization, users can equip their items to their avatar and room to personalize them.  
                   </p>
                 </div>
                 <div className='bg-red-500  flex items-center justify-center col-span-6 row-span-2 font-mono text-2xl'>
@@ -368,7 +360,7 @@ function App() {
                     2 player mode 
                   </p>
                   <p className='font-mono text-1xl font-semibold pl-3 line-through'>
-                    Added AI to make automatic move
+                    Added AI to make moves automatic
                   </p>
                   <p className='font-mono text-1xl font-semibold pl-3 line-through'>
                     Used A star algo to get the shortest path between the player and the goal then the AI will choose base on that.
