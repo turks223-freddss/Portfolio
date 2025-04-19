@@ -1,0 +1,47 @@
+@keyframes spin-once {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .rotate-once {
+    animation: spin-once 1s linear 
+    forwards;
+  }
+
+button1 {
+    color: #F8F8F2;  /* Default text color */
+    border: 0;
+    outline: none;
+    background: none;
+    position: relative;
+    padding-right: 2px;
+    overflow: hidden;  /* Hide the pseudo-element outside the button */
+    font-family: serif;
+    font-size: 65px;
+    transition: color 0.2s ease-in;
+    
+}
+
+button1:hover {
+    color: #FF6B35;  /* Change text color on hover */
+}
+
+.hover-text{
+    position: absolute;
+    content: '';
+    color: #FF6B35;
+    width: 0%;
+    inset: 0;
+    overflow: hidden;
+    border-right: 2px solid #FF6B35;
+    transition: width 0.4s ease;
+}
+
+button1:hover .hover-text{
+    width: 100%;
+    filter:drop-shadow(0 0 23px #FF6B35);
+}
