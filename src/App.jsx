@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import pythonLogo from './assets/python.svg'
 import CLogo from './assets/c.svg'
 import React from './assets/react.svg'
@@ -13,11 +13,14 @@ import pygame from './assets/pygame.jpg'
 import './App.css'
 import Section from './section.jsx';
 import RotatingImage from './rotatingImage.jsx'
+import emailjs from '@emailjs/browser';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 function App() {
   
   const [isRotating, setIsRotating] = useState(false);
-  
+  const form = useRef();
+
   const [activeCard, setActiveCard] = useState(0);
   
   const handleNext = () => {
@@ -33,65 +36,85 @@ function App() {
     setTimeout(() => setIsRotating(false), 1000); // Reset after animation
   };
 
+  const handleCaptchaChange = (value) => {
+    setCaptchaToken(value);
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm('service_gwuzdeh', 'template_cn0eyy2', form.current, {
+        publicKey: 'rGpcBU_xoORl3w2gJ',
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
+    };
   return (
     <div className="snap-y snap-mandatory h-screen overflow-y-scroll scroll-smooth "
     style={{ backgroundImage: `url(${background})` }}>
 
-      <Section id="entry" color="">
-      <div className="text-center">
-        <button1>
-            Helloo, I'm Marfred James Deen
-            <span class="hover-text"></span>
-        </button1>
-        <p className="text-xl text-[#FF6B35]">"Focus on the present and learn from the past"</p>
-        <div className='grid grid-cols-4 w-70% h-20  gap-4 p-5'>
-          {/* skills */}
-          <div className='flex items-center justify-center'>
+      <Section id="entry" color="" >
+        <div className="text-center">
+          <button1>
+              Helloo, I'm Marfred James Deen
+              <span class="hover-text"></span>
+          </button1>
+          <p className="text-xl text-[#FF6B35]">"Focus on the present and learn from the past"</p>
+          <div className='grid grid-cols-4 w-70% h-20  gap-4 p-5'>
+            {/* skills */}
+            <div className='flex items-center justify-center'>
+              <button  onClick={() => {
+                const skills = document.getElementById('skills');
+                skills?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
+              >
+                SKILL
+              </button>
+            </div>
+              {/* HERO */}
+            <div className=' flex items-center justify-center'>
             <button  onClick={() => {
-              const skills = document.getElementById('skills');
-              skills?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
-            >
-              SKILL
-            </button>
-          </div>
-            {/* HERO */}
-          <div className=' flex items-center justify-center'>
-          <button  onClick={() => {
-              const hero = document.getElementById('hero');
-              hero?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
-            >
-              WELCOME
-            </button>
-          </div>
-          {/* project */}
-          <div className='flex items-center justify-center'>
-          <button  onClick={() => {
-              const projects = document.getElementById('projects');
-              projects?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
-            >
-              PROJECTS
-            </button>
-          </div>
-            {/* CONTACTS */}
-          <div className=' flex items-center justify-center'>
-          <button  onClick={() => {
-              const contact = document.getElementById('contact');
-              contact?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
-            >
-              CONTACT
-            </button>
-          </div>
+                const hero = document.getElementById('hero');
+                hero?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
+              >
+                WELCOME
+              </button>
+            </div>
+            {/* project */}
+            <div className='flex items-center justify-center'>
+            <button  onClick={() => {
+                const projects = document.getElementById('projects');
+                projects?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
+              >
+                PROJECTS
+              </button>
+            </div>
+              {/* CONTACTS */}
+            <div className=' flex items-center justify-center'>
+            <button  onClick={() => {
+                const contact = document.getElementById('contact');
+                contact?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gray-900 blur-xs size-full font-serif text-2xl font-bold hover:text-[#753602] hover:blur-none hover:bg-[#FF6B35] active:scale-95 transition rounded-full"
+              >
+                CONTACT
+              </button>
+            </div>
 
+          </div>
         </div>
-      </div>
 
 
       </Section>
@@ -133,7 +156,7 @@ function App() {
       
       </Section>
       <Section id="skills" color="">
-        <div className='font-serif text-8xl absolute self-baseline text-[#F8F8F2] font-bold 
+        <div className='font-serif text-[5vw] absolute self-baseline text-[#F8F8F2] font-bold 
                         hover:drop-shadow-[0_0_15px_#F8F8F2] transition duration-300 '>
           Skills
         </div>
@@ -147,7 +170,7 @@ function App() {
                 
               />
             </div>
-            <div className='flex items-center justify-center font-serif font-bold text-4xl pr- text-[#FFC857] 
+            <div className='flex items-center justify-center font-serif font-bold text-[2.5vw] pr- text-[#FFC857] 
                             hover:drop-shadow-[0_0_10px_#FFC857] transition duration-300'>
               Python
             </div>
@@ -169,7 +192,7 @@ function App() {
                 
               />
             </div>
-            <div className='flex items-center justify-center font-serif font-bold text-4xl pr- text-[#FFC857] 
+            <div className='flex items-center justify-center font-serif font-bold text-[2.5vw] pr- text-[#FFC857] 
                             hover:drop-shadow-[0_0_10px_#FFC857] transition duration-300'>
               React
             </div>
@@ -183,7 +206,7 @@ function App() {
                 
               />
             </div>
-            <div className='flex items-center justify-center font-serif font-bold text-4xl pr- text-[#FFC857] 
+            <div className='flex items-center justify-center font-serif font-bold text-[2.5vw] pr- text-[#FFC857] 
                             hover:drop-shadow-[0_0_10px_#FFC857] transition duration-300'>
               django
             </div>
@@ -197,7 +220,7 @@ function App() {
                 
               />
             </div>
-            <div className='flex items-center justify-center font-serif font-bold text-4xl pr- text-[#FFC857] 
+            <div className='flex items-center justify-center font-serif font-bold text-[2.5vw] pr- text-[#FFC857] 
                             hover:drop-shadow-[0_0_10px_#FFC857] transition duration-300'>
               MySQL
             </div>
@@ -211,7 +234,7 @@ function App() {
                 
               />
             </div>
-            <div className='flex items-center justify-center font-serif font-bold text-4xl pr- text-[#FFC857] 
+            <div className='flex items-center justify-center font-serif font-bold text-[2.5vw] pr- text-[#FFC857] 
                             hover:drop-shadow-[0_0_10px_#FFC857] transition duration-300'>
               PostgreSQL
             </div>
@@ -237,7 +260,7 @@ function App() {
                 
                 <div className='  flex items-center justify-center col-span-4'> 
                   <h1 onClick={() => window.open('https://github.com/turks223-freddss/Ikiyo', '_blank')}
-                  className='font-mono font-bold text-[#2A2A2A] underline decoration-white text-4xl 
+                  className='font-mono font-bold text-[#2A2A2A] underline decoration-white text-[2.65vw] 
                                 hover:overline hover:text-white hover:scale-110
                                 flex items-center justify-center
 
@@ -252,58 +275,58 @@ function App() {
                   <div className='grid grid-rows-2 grid-cols-2 size-full gap-1 p-2 bg-orange-700/30 backdrop-blur-md rounded-xl drop-shadow-[0_0_10px_#c2410c] '>
                     <div className='flex flex-row '>
                       <div className='w-[30%] '>
-                        <img src={React} alt="React_logo" className="w-25 h-25 self-center justify-self-center -scale-75" />
+                        <img src={React} alt="React_logo" className="size-[5vw] self-center justify-self-center -scale-75" />
                       </div>
-                      <div className='w-[60%]  font-mono font-bold text-4xl self-center justify-self-center ml-5'>
+                      <div className='w-[60%]  font-mono font-bold text-[2vw] self-center justify-self-center ml-5'>
                         React Native
                       </div>
                       
                     </div>
                     <div className='flex flex-row '>
                       <div className='w-[30%]  '>
-                        <img src={django} alt="django_logo" className="w-25 h-25 self-center justify-self-center scale-150" />
+                        <img src={django} alt="django_logo" className="size-[5vw] self-center justify-self-center scale-150" />
                       </div>
-                      <div className='w-[60%]  font-mono font-bold text-5xl self-center justify-self-center ml-5'>
+                      <div className='w-[60%]  font-mono font-bold text-[2vw] self-center justify-self-center ml-5'>
                         Django
                       </div>
                       
                     </div>
                     <div className='flex flex-row '>
                       <div className='w-[30%]  '>
-                        <img src={postres} alt="Postres_logo" className="w-25 h-25 self-center justify-self-center " />
+                        <img src={postres} alt="Postres_logo" className="size-[5.5vw] self-center justify-self-center " />
                       </div>
-                      <div className='w-[60%]  font-mono font-bold text-5xl self-center justify-self-center ml-5'>
+                      <div className='w-[60%]  font-mono font-bold text-[2vw] self-center justify-self-center ml-5'>
                         PostgreSQL
                       </div>
                       
                     </div>
-                    <div className='font-mono text-2xl felx items-center justify-center  '>
-                      These are the frameworks and databases used for the project, react native for the front end and Django for the backend.
+                    <div className="font-mono text-[0.9vw] flex items-center justify-center w-full max-w-full overflow-hidden break-words p-2 text-center">
+                      These are the frameworks and databases used for the project, React Native for the front end and Django for the backend.
                     </div>
 
                   </div>
                 </div>
                 <div className='bg-orange-700/30 backdrop-blur-md rounded-xl drop-shadow-[0_0_10px_#c2410c] flex col-span-6 row-span-2 flex-col '>  
-                  <h1 className=' font-mono text-4xl self-center font-bold'>
+                  <h1 className=' font-mono text-[2.5vw] self-center font-bold'>
                     Features
                   </h1>
-                  <p className='font-mono text-1xl font-semibold pl-3 line-through'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3 line-through'>
                     Authentication System, users can create, login, and change their password.  
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3 line-through'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3 line-through'>
                     Item & Inventory System, using the shop, users can acquire items that will dynamically update their inventory after purchasing.  
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3'>
                     Partner System 
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3'>
                     Task system, partners can give and receive tasks from their partners, and upon completing they receive some reward.  
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3'>
                     Avatar and Environment customization, users can equip their items to their avatar and room to personalize them.  
                   </p>
                 </div>
-                <div className='bg-red-500  flex items-center justify-center col-span-6 row-span-2 font-mono text-2xl'>
+                <div className='bg-red-500  flex items-center justify-center col-span-6 row-span-2 font-mono text-[2vw]'>
                   Photos soon to be added
                 </div>
               </div>
@@ -315,7 +338,7 @@ function App() {
                 
                 <div className='  flex items-center justify-center col-span-4'> 
                   <h1 onClick={() => window.open('https://github.com/turks223-freddss/170_maze_runner', '_blank')}
-                  className='font-mono font-bold text-[#2A2A2A] underline decoration-white text-4xl 
+                  className='font-mono font-bold text-[#2A2A2A] underline decoration-white text-[4svw] 
                                 hover:overline hover:text-white hover:scale-110
                                 flex items-center justify-center
 
@@ -330,49 +353,49 @@ function App() {
                   <div className='grid grid-rows-2 grid-cols-2 size-full gap-1 p-2 bg-orange-700/30 backdrop-blur-md rounded-xl drop-shadow-[0_0_10px_#c2410c] '>
                     <div className='flex flex-row '>
                       <div className='w-[30%] '>
-                        <img src={pythonLogo} alt="ppython" className="w-25 h-25 self-center justify-self-center" />
+                        <img src={pythonLogo} alt="ppython" className="size-[5vw] self-center justify-self-center" />
                       </div>
-                      <div className='w-[60%]  font-mono font-bold text-4xl self-center justify-self-center ml-5'>
+                      <div className='w-[60%]  font-mono font-bold text-[2.5vw] self-center justify-self-center ml-5'>
                         Python
                       </div>
                       
                     </div>
                     <div className='flex flex-row '>
                       <div className='w-[30%]  '>
-                        <img src={pygame} alt="pygame" className="w-25 h-25 self-center justify-self-center scale-75" />
+                        <img src={pygame} alt="pygame" className="size-[4.5vw] self-center justify-self-center scale-75" />
                       </div>
-                      <div className='w-[60%]  font-mono font-bold text-5xl self-center justify-self-center ml-5'>
+                      <div className='w-[60%]  font-mono font-bold text-[2.5vw] self-center justify-self-center ml-5'>
                         Pygame
                       </div>
                       
                     </div>
-                    <div className='font-mono text-2xl felx items-center justify-center col-span-2 '>
+                    <div className='font-mono text-[1.4vw] felx items-center justify-center col-span-2 '>
                       These are the used tech stack for this project. Python is the main language and Pygame is the library used to make the game
                     </div>
 
                   </div>
                 </div>
                 <div className='bg-orange-700/30 backdrop-blur-md rounded-xl drop-shadow-[0_0_10px_#c2410c] flex col-span-6 row-span-2 flex-col '>  
-                  <h1 className=' font-mono text-4xl self-center font-bold'>
+                  <h1 className=' font-mono text-[2.2svw] self-center font-bold'>
                     Features
                   </h1>
-                  <p className='font-mono text-1xl font-semibold pl-3 line-through'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3 line-through'>
                     2 player mode 
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3 line-through'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3 line-through'>
                     Added AI to make moves automatic
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3 line-through'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3 line-through'>
                     Used A star algo to get the shortest path between the player and the goal then the AI will choose base on that.
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3 line-through'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3 line-through'>
                     Implemented Alpha-Beta pruning
                   </p>
-                  <p className='font-mono text-1xl font-semibold pl-3'>
+                  <p className='font-mono text-[1vw] font-semibold pl-3'>
                     optimize skill usage 
                   </p>
                 </div>
-                <div className='bg-red-500  flex items-center justify-center col-span-6 row-span-2 font-mono text-2xl'>
+                <div className='bg-red-500  flex items-center justify-center col-span-6 row-span-2 font-mono text-[2.5vw]'>
                   Photos soon to be added
                 </div>
               </div>
@@ -396,7 +419,7 @@ function App() {
           <h1 className="text-4xl md:text-5xl font-bold text-center">Contact Me</h1>
           
           <div className="flex flex-col md:flex-row gap-8 justify-between">
-            <div className="flex flex-col gap-4">
+           <div className="flex flex-col gap-4">
               <div>
                 <h2 className="text-xl font-semibold">Email</h2>
                 <p className="text-base md:text-lg">marfred.deen02@gmail.com</p>
@@ -430,6 +453,15 @@ function App() {
               </div>
             </div>
           </div>
+          <form ref={form} onSubmit={sendEmail}>
+            <label>Name</label>
+            <input type="text" name="user_name" />
+            <label>Email</label>
+            <input type="email" name="user_email" />
+            <label>Message</label>
+            <textarea name="message" />
+            <input type="submit" value="Send" />
+          </form>
         </div>
       </Section>
     </div>
